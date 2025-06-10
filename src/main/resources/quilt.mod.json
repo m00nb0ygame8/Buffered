@@ -1,0 +1,42 @@
+{
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "${group}",
+		"id": "buffered",
+		"version": "${version}",
+		"metadata": {
+			"name": "Buffered",
+			"description": "A mod that helps in rendering shaders effectively.",
+			"contributors": {
+				"MoonBoyGamer": "Owner"
+			},
+			"contact": {
+				"homepage": "https://example.com/",
+				"issues": "https://github.com/QuiltMC/quilt-template-mod/issues",
+				"sources": "https://github.com/QuiltMC/quilt-template-mod"
+			},
+			"icon": "assets/buffered/icon.png"
+		},
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"init": "me.moonboygamer.buffered.BufferedMod",
+			"client_init": "me.moonboygamer.buffered.client.BufferedModClient"
+		},
+		"depends": [
+			{
+				"id": "quilt_loader",
+				"versions": ">=0.19.1"
+			},
+			{
+				"id": "quilted_fabric_api",
+				"versions": ">=7.0.2"
+			},
+			{
+				"id": "minecraft",
+				"versions": ">=1.20"
+			}
+		]
+	},
+	"mixin": "buffered.mixins.json",
+	"accessWidener": "buffered.accesswidener"
+}
