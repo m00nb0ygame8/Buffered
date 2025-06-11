@@ -1,5 +1,6 @@
 package me.moonboygamer.buffered.shader;
 
+import me.moonboygamer.buffered.post.DynamicPostShader;
 import me.moonboygamer.buffered.program.BufferedShader;
 import me.moonboygamer.buffered.program.CompiledShader;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class BufferedShaderManager {
     private static boolean useDynamicShader = false;
+	private static DynamicPostShader currentDynamicShader = null;
     private static final Map<String, CompiledShader<BufferedShader>> registry = new ConcurrentHashMap<>();
 
     public static boolean isUseDynamicShader() { return useDynamicShader; }
@@ -31,4 +33,12 @@ public class BufferedShaderManager {
     public static void clearAll() {
         registry.clear();
     }
+
+	public static DynamicPostShader getCurrentDynamicShader() {
+		return currentDynamicShader;
+	}
+
+	public static void setCurrentDynamicShader(DynamicPostShader currentDynamicShader) {
+		BufferedShaderManager.currentDynamicShader = currentDynamicShader;
+	}
 }

@@ -61,9 +61,9 @@ public abstract class ShaderEffectMixin {
 	@Final
 	private List<PostProcessShader> passes;
 	@Unique
-	private static Supplier<Boolean> useDynamicShader = BufferedShaderManager::isUseDynamicShader;
+	private static final Supplier<Boolean> useDynamicShader = BufferedShaderManager::isUseDynamicShader;
 	@Unique
-	private static final ThreadLocal<DynamicPostShader> dynamicPostShader = new ThreadLocal<>();
+	private static final Supplier<DynamicPostShader> dynamicPostShader = BufferedShaderManager::getCurrentDynamicShader;
 	@Unique
 	private static final ThreadLocal<DynamicPostShader.PassDef> currentPass = new ThreadLocal<>();
 
