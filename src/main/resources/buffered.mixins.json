@@ -6,6 +6,10 @@
   "mixins": [],
   "client": [
     "JsonGlShaderMixin",
+    "PostProcessShaderMixin",
+    "PostShaderAccessor",
+    "ShaderEffectAccessor",
+    "ShaderEffectMixin",
     "ShaderProgramMixin"
   ],
   "injectors": {

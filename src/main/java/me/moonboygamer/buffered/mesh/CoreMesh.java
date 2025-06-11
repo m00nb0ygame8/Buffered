@@ -4,12 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import me.moonboygamer.buffered.core.BufferedCoreShader;
-import me.moonboygamer.buffered.program.BufferedShaderProgram;
-import net.minecraft.client.render.ShaderProgram;
+import me.moonboygamer.buffered.program.CompiledShader;
 import org.joml.Matrix4f;
 
 public class CoreMesh extends Mesh<BufferedCoreShader> {
-    public CoreMesh(BufferBuilder.RenderedBuffer rendered, BufferedShaderProgram<BufferedCoreShader> shader) {
+    public CoreMesh(BufferBuilder.RenderedBuffer rendered, CompiledShader<BufferedCoreShader> shader) {
         super(rendered, shader);
     }
 

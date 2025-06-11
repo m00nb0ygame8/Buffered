@@ -1,13 +1,13 @@
 package me.moonboygamer.buffered.renderer;
 
 import me.moonboygamer.buffered.mesh.Mesh;
-import me.moonboygamer.buffered.program.BufferedShaderProgram;
+import me.moonboygamer.buffered.program.CompiledShader;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ShaderRenderer<T> {
 	protected Mesh<T> mesh;
-	protected BufferedShaderProgram<T> shader;
+	protected CompiledShader<T> shader;
 
 	protected ShaderRenderer() {}
 
@@ -18,7 +18,7 @@ public abstract class ShaderRenderer<T> {
 	}
 
 	public abstract Mesh<T> createMesh();
-	public abstract BufferedShaderProgram<T> createShader();
+	public abstract CompiledShader<T> createShader();
 	public abstract void render(@Nullable MatrixStack stack, @Nullable Float tickDelta);
 
 	public static class Factory {
@@ -31,5 +31,9 @@ public abstract class ShaderRenderer<T> {
 				throw new RuntimeException("Failed to instantiate ShaderRenderer: " + clazz.getName(), e);
 			}
 		}
+	}
+	public Mesh<T> getMesh() {
+		if(mesh == null) throw new IllegalStateException("Mesh not initialized. Call createMesh() or init() first.");
+		return mesh;
 	}
 }

@@ -1,20 +1,20 @@
-package me.moonboygamer.buffered.post;
+package me.moonboygamer.buffered.program;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.framebuffer.Framebuffer;
 import com.mojang.blaze3d.shader.GlUniform;
 import net.minecraft.client.gl.PostProcessShader;
 import net.minecraft.client.gl.ShaderParseException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class BufferedPostShader {
+public class BufferedProgramShader implements BufferedShader {
 	private final Uniforms uniforms;
 	private final PostProcessShader shader;
 
-	public BufferedPostShader(PostProcessShader shader) {
+	public BufferedProgramShader(PostProcessShader shader) {
 		this.shader = shader;
 		this.uniforms = new Uniforms();
 	}
@@ -36,7 +36,7 @@ public class BufferedPostShader {
 	}
 
 	private static class Uniforms {
-		private List<JsonElement> uniforms;
+		private List<JsonElement> uniforms = new ArrayList<>();
 		private boolean compiled = false;
 
 		public void addUniform(String name, String type, int count, JsonArray values) {

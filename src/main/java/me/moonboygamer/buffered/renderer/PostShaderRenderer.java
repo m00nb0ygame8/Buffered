@@ -1,22 +1,18 @@
 package me.moonboygamer.buffered.renderer;
 
-import me.moonboygamer.buffered.mesh.Mesh;
-import me.moonboygamer.buffered.mesh.PostMesh;
-import me.moonboygamer.buffered.post.BufferedPostShader;
-import me.moonboygamer.buffered.program.BufferedShaderProgram;
-import me.moonboygamer.buffered.program.PostShaderProgram;
-import net.minecraft.client.gl.PostProcessShader;
-import net.minecraft.client.util.math.MatrixStack;
-import org.jetbrains.annotations.Nullable;
+import me.moonboygamer.buffered.post.pipeline.BufferedRenderPipeline;
 
-public abstract class PostShaderRenderer extends ShaderRenderer<BufferedPostShader> {
+public abstract class PostShaderRenderer {
+	private BufferedRenderPipeline pipeline;
 
-	public abstract void onRender(float tickDelta);
+	public PostShaderRenderer() {
+		this.pipeline = createPipeline();
+	}
 
-	@Override
-	public void render(@Nullable MatrixStack stack, @Nullable Float tickDelta) {
-		if(tickDelta == null) throw new IllegalArgumentException("Tick delta cannot be null");
-		if(shader == null || mesh == null) throw new IllegalStateException("ShaderRenderer not initialized.");
-		onRender(tickDelta);
+	public abstract BufferedRenderPipeline createPipeline();
+
+	public void render(float tickDelta) {
+		if(pipeline == null) throw new IllegalStateException("Pipeline is not initialized. This should not happen, please report this issue to the mod author.");
+		pipeline.render(tickDelta);
 	}
 }
