@@ -16,7 +16,7 @@ public class ShaderDefaults {
 		Framebuffer in = ((PostShaderAccessor) shader.getShader()).getInputFramebuffer();
 		Framebuffer out = ((PostShaderAccessor) shader.getShader()).getOutputFramebuffer();
 
-		if(insertSamplers) insertPostSamplers(shader, in, out);
+		if(insertSamplers) insertPostSamplers(shader, in);
 
 		shader.getUniform("ProjMat").setMat4x4(
 			new Matrix4f()
@@ -41,10 +41,9 @@ public class ShaderDefaults {
 			(float) client.getWindow().getFramebufferHeight());
 
 	}
-	public static void insertPostSamplers(BufferedProgramShader shader, Framebuffer in, Framebuffer out) {
+	public static void insertPostSamplers(BufferedProgramShader shader, Framebuffer in) {
 		shader.getShader().getProgram().bindSampler("TextureSampler", in::getColorAttachment);
 		shader.getShader().getProgram().bindSampler("DepthSampler", in::getDepthAttachment);
-		shader.getShader().getProgram().bindSampler("OutputSampler", out::getColorAttachment);
 	}
 	public static VertexBuffer createDefaultPostVBO(int initialCapacity, Framebuffer out) {
 		VertexBuffer vbo = VertexFormats.POSITION.getBuffer();

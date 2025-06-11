@@ -64,7 +64,7 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 	public void render(float tickDelta) {
 		BufferedProgramShader bufferedSelf = new BufferedProgramShader((PostProcessShader)(Object) this);
 		input.endWrite();
-		ShaderDefaults.insertPostSamplers(bufferedSelf, input, output);
+		ShaderDefaults.insertPostSamplers(bufferedSelf, input);
 		for(int i = 0; i < samplerValues.size(); ++i) {
 			program.bindSampler(this.samplerNames.get(i), this.samplerValues.get(i));
 			program.getUniformByNameOrDummy("AuxSize" + i).setVec2((float) this.samplerWidths.get(i), (float) this.samplerHeights.get(i));

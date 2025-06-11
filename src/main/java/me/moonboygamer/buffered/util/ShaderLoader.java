@@ -21,7 +21,7 @@ public class ShaderLoader {
 			throw new RuntimeException(e);
 		}
 	}
-	public static PostProcessShader loadPostShader(Identifier identifier, Framebuffer inBuffer, Framebuffer outBuffer) {
+	public static PostProcessShader loadProgramShader(Identifier identifier, Framebuffer inBuffer, Framebuffer outBuffer) {
 		try {
 			return new PostProcessShader(
 				MinecraftClient.getInstance().getResourceManager(),

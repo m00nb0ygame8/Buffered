@@ -14,10 +14,10 @@ public abstract class ShaderRenderer<T> {
 	public void init() {
 		if (shader == null)
 			shader = createShader();
-		mesh = createMesh();
+		mesh = createMesh(shader);
 	}
 
-	public abstract Mesh<T> createMesh();
+	public abstract Mesh<T> createMesh(CompiledShader<T> shader);
 	public abstract CompiledShader<T> createShader();
 	public abstract void render(@Nullable MatrixStack stack, @Nullable Float tickDelta);
 

@@ -1,10 +1,11 @@
 package me.moonboygamer.buffered.renderer;
 
+import me.moonboygamer.buffered.core.BufferedCoreShader;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class CoreShaderRenderer extends ShaderRenderer<ShaderProgram> {
+public abstract class CoreShaderRenderer extends ShaderRenderer<BufferedCoreShader> {
 
 	public abstract void onRender(MatrixStack matrices);
 	@Override
