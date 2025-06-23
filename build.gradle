@@ -30,14 +30,17 @@ loom {
 			// configuration("exampleShadedConfigurationName")
 		}
 	}
-	accessWidenerPath = file('src/main/resources/buffered.accesswidener')
+	accessWidenerPath = file('src/main/resources/me.moonboygamer.buffered.accesswidener')
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"
 // See https://docs.gradle.org/current/userguide/platforms.html for information on how version catalogs work.
 dependencies {
 	minecraft libs.minecraft
-	mappings variantOf(libs.quilt.mappings) { classifier 'intermediary-v2' }
+	mappings loom.layered {
+		officialMojangMappings()
+		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
+	}
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
 	/*
 	mappings loom.layered {

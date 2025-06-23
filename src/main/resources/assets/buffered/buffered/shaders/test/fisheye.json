@@ -1,0 +1,30 @@
+{
+  "vertex": "buffered:fisheye/unit_triangle",
+  "fragment": "buffered:fisheye/unit_triangle",
+  "attributes": ["Position"],
+  "samplers": [{"name":  "TextureSampler"}],
+  "uniforms": [
+    {
+      "name":  "ScreenSize",
+      "type": "float",
+      "count": 2,
+      "values": [
+        1920.0,
+        1080.0
+      ]
+    },
+    {
+      "name": "Strength",
+      "type": "float",
+      "count": 1,
+      "values": [
+        1.0
+      ]
+    }
+  ],
+  "blend": {
+    "func": "add",
+    "srcrgb": "one",
+    "dstrgb": "zero"
+  }
+}
