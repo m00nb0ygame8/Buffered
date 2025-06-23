@@ -2,10 +2,8 @@ package me.moonboygamer.buffered.post.pipeline;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import me.moonboygamer.buffered.mixin.ShaderEffectAccessor;
-import me.moonboygamer.buffered.post.DynamicPostShader;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 

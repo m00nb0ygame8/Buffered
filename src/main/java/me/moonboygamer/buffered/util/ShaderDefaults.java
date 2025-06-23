@@ -1,5 +1,6 @@
 package me.moonboygamer.buffered.util;
 
+import com.google.gson.JsonArray;
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexBuffer;
@@ -17,28 +18,48 @@ public class ShaderDefaults {
 		Framebuffer out = ((PostShaderAccessor) shader.getShader()).getOutputFramebuffer();
 
 		if(insertSamplers) insertPostSamplers(shader, in);
+		//add all uniforms
+		JsonArray default4x4 = new JsonArray(), defaultVec2 = new JsonArray(), defaultFloat = new JsonArray();
+		for(int i = 0; i < 16; i++) {default4x4.add(0.0F);}
+		for(int i = 0; i < 2; i++) {defaultVec2.add(0.0F);}
+		defaultFloat.add(0.0F);
 
-		shader.getUniform("ProjMat").setMat4x4(
-			new Matrix4f()
-				.setOrtho(0.0F, (float)input.textureWidth,
-					0.0F, (float)input.textureHeight,
-					0.1F,
-					1000.0F
+		shader.hasUniform("ProjMat", (glUniform) -> {
+			glUniform.setMat4x4(
+				new Matrix4f().setOrtho(
+					0.0F, (float) input.textureWidth,
+					0.0F, (float) input.textureHeight,
+					0.1F, 1000.0F
 				)
-		);
-		shader.getUniform("InSize").setVec2(
-			(float) in.textureWidth,
-			(float) in.textureHeight
-		);
-		shader.getUniform("OutSize").setVec2(
-			(float) out.textureWidth,
-			(float) out.textureHeight
-		);
-		shader.getUniform("Time").setFloat(time);
+			);
+			shader.markUniformsDirty();
+		});
+		shader.hasUniform("InSize", (glUniform) -> {
+			glUniform.setVec2(
+				(float) in.textureWidth,
+				(float) in.textureHeight
+			);
+			shader.markUniformsDirty();
+		});
+		shader.hasUniform("OutSize", (glUniform) -> {
+			glUniform.setVec2(
+				(float) out.textureWidth,
+				(float) out.textureHeight
+			);
+			shader.markUniformsDirty();
+		});
+		shader.hasUniform("Time", (glUniform) -> {
+			glUniform.setFloat(time);
+			shader.markUniformsDirty();
+		});
 		MinecraftClient client = MinecraftClient.getInstance();
-		shader.getUniform("ScreenSize").setVec2(
-			(float) client.getWindow().getFramebufferWidth(),
-			(float) client.getWindow().getFramebufferHeight());
+		shader.hasUniform("ScreenSize", (glUniform) -> {
+			glUniform.setVec2(
+				(float) client.getWindow().getFramebufferWidth(),
+				(float) client.getWindow().getFramebufferHeight()
+			);
+			shader.markUniformsDirty();
+		});
 
 	}
 	public static void insertPostSamplers(BufferedProgramShader shader, Framebuffer in) {
@@ -46,15 +67,15 @@ public class ShaderDefaults {
 		shader.getShader().getProgram().bindSampler("DepthSampler", in::getDepthAttachment);
 	}
 	public static VertexBuffer createDefaultPostVBO(int initialCapacity, Framebuffer out) {
-		VertexBuffer vbo = VertexFormats.POSITION.getBuffer();
+		VertexBuffer vbo = VertexFormats.POSITION_TEXTURE_COLOR.getBuffer();
 		float f = (float)out.textureWidth;
 		float g = (float)out.textureHeight;
 		BufferBuilder bufferBuilder = new BufferBuilder(initialCapacity);
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION);
-		bufferBuilder.vertex(0.0F, 0.0F, 500.0F).next();
-		bufferBuilder.vertex(f, 0.0F, 500.0F).next();
-		bufferBuilder.vertex(f, g, 500.0F).next();
-		bufferBuilder.vertex(0.0F, g, 500.0F).next();
+		bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR);
+		bufferBuilder.vertex(0.0F, 0.0F, 500.0F).uv(0.0F, 0.0F).color(255, 255, 255, 255).next();
+		bufferBuilder.vertex(f, 0.0F, 500.0F).uv(0.0F, 0.0F).color(255, 255, 255, 255).next();
+		bufferBuilder.vertex(f, g, 500.0F).uv(0.0F, 0.0F).color(255, 255, 255, 255).next();
+		bufferBuilder.vertex(0.0F, g, 500.0F).uv(0.0F, 0.0F).color(255, 255, 255, 255).next();
 		vbo.upload(bufferBuilder.end());
 		return vbo;
 	}

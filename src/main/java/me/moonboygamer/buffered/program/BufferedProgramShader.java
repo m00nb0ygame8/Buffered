@@ -9,6 +9,8 @@ import net.minecraft.client.gl.ShaderParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 public class BufferedProgramShader implements BufferedShader {
 	private final Uniforms uniforms;
@@ -30,10 +32,18 @@ public class BufferedProgramShader implements BufferedShader {
 	public GlUniform getUniform(String name) {
 		return uniforms.getUniform(name, shader);
 	}
+	public boolean hasUniform(String name) {
+		return uniforms.hasUniform(name, shader);
+	}
+	public void hasUniform(String name, Consumer<GlUniform> consumer) {
+		uniforms.hasUniform(name, shader, consumer);
+	}
 
 	public void compileUniforms() {
 		uniforms.compileUniforms(shader);
 	}
+
+	public void markUniformsDirty() { uniforms.markDirty(); }
 
 	private static class Uniforms {
 		private List<JsonElement> uniforms = new ArrayList<>();
@@ -49,8 +59,16 @@ public class BufferedProgramShader implements BufferedShader {
 		}
 
 		public GlUniform getUniform(String name, PostProcessShader shader) {
-			if(!compiled) compileUniforms(shader);
+			if (!compiled) compileUniforms(shader);
 			return shader.getProgram().getUniformByName(name);
+		}
+		public boolean hasUniform(String name, PostProcessShader shader) {
+			if(!compiled) compileUniforms(shader);
+			return shader.getProgram().getUniformByName(name) != null;
+		}
+		public void hasUniform(String name, PostProcessShader shader, Consumer<GlUniform> consumer) {
+			if(!compiled) compileUniforms(shader);
+			Optional.ofNullable(shader.getProgram().getUniformByName(name)).ifPresent(consumer);
 		}
 
 		public void compileUniforms(PostProcessShader shader) {
@@ -63,5 +81,6 @@ public class BufferedProgramShader implements BufferedShader {
 			}
 			compiled = true;
 		}
+		public void markDirty() { compiled = false; }
 	}
 }

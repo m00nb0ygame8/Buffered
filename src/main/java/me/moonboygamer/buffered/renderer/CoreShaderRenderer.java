@@ -1,7 +1,6 @@
 package me.moonboygamer.buffered.renderer;
 
 import me.moonboygamer.buffered.core.BufferedCoreShader;
-import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.Nullable;
 
