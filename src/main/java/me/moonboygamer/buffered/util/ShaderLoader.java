@@ -14,7 +14,7 @@ public class ShaderLoader {
 		try {
 			return new ShaderProgram(
 				MinecraftClient.getInstance().getResourceManager(),
-				identifier.toString(),
+				identifier.toString().contains(".json") ? identifier.toString() : identifier + ".json",
 				format
 			);
 		} catch (IOException e) {

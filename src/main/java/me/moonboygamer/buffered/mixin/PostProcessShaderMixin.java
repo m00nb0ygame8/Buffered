@@ -41,8 +41,11 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 	@Unique
 	private static final ThreadLocal<VertexBuffer> vbo = new ThreadLocal<>();
 	@Unique
+	private static boolean isCustomDraw = false;
+	@Unique
 	@Override
 	public void buffered$renderPost(float tickDelta, @Nullable VertexBuffer buffer, boolean useDefaultVBO) {
+		isCustomDraw = true;
 		if(useDefaultVBO) {
 			vbo.set(
 				ShaderDefaults.createDefaultPostVBO(
@@ -55,6 +58,7 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 		}
 		((PostProcessShader)(Object) this).render(tickDelta);
 		vbo.remove();
+		isCustomDraw = false;
 	}
 
 	/**
@@ -76,7 +80,11 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 		output.beginWrite(false);
 		RenderSystem.depthFunc(519);
 		VertexBuffer postVbo = vbo.get() != null ? vbo.get() : null;
+		if(!isCustomDraw && postVbo == null) {
+			postVbo = ShaderDefaults.createDefaultPostVBO(786432, output);
+		}
 		if(postVbo == null) throw new IllegalStateException("Cannot retrieve VBO for post-processing shader. Ensure you are using the correct method to render post-processing shaders.");
+		postVbo.bind();
 		postVbo.drawElements();
 		RenderSystem.depthFunc(515);
 		program.disable();

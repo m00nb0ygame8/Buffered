@@ -8,7 +8,7 @@ import org.joml.Matrix4f;
 
 public class ProgramMesh extends Mesh<BufferedProgramShader> {
 	private final boolean useCustomVbo;
-	private VertexBuffer customVbo;
+	private VertexBuffer customVbo = null;
 
 	public ProgramMesh(CompiledShader<BufferedProgramShader> postProgram, boolean useCustomVbo) {
 		super(postProgram);
@@ -24,7 +24,7 @@ public class ProgramMesh extends Mesh<BufferedProgramShader> {
 		((PostShaderAddon) shader.getStoredShader().getShader()).buffered$renderPost(
 			tickDelta,
 			useCustomVbo && customVbo != null ? customVbo : null,
-			useCustomVbo && customVbo != null
+			!useCustomVbo && customVbo == null
 		);
     }
 }

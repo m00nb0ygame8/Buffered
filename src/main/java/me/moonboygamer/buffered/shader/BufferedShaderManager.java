@@ -3,6 +3,7 @@ package me.moonboygamer.buffered.shader;
 import me.moonboygamer.buffered.post.DynamicPostShader;
 import me.moonboygamer.buffered.program.BufferedShader;
 import me.moonboygamer.buffered.program.CompiledShader;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
