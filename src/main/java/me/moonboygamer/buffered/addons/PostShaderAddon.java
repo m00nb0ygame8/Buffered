@@ -1,4 +1,4 @@
-package me.moonboygamer.buffered.mixin;
+package me.moonboygamer.buffered.addons;
 
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import org.jetbrains.annotations.Nullable;

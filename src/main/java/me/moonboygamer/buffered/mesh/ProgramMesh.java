@@ -1,7 +1,7 @@
 package me.moonboygamer.buffered.mesh;
 
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import me.moonboygamer.buffered.mixin.PostShaderAddon;
+import me.moonboygamer.buffered.addons.PostShaderAddon;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.program.CompiledShader;
 import org.joml.Matrix4f;

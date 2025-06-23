@@ -20,7 +20,7 @@
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
 			"init": "me.moonboygamer.buffered.BufferedMod",
-			"client_init": "me.moonboygamer.buffered.client.BufferedModClient"
+			"client_init": "me.moonboygamer.buffered.client.BufferedClient"
 		},
 		"depends": [
 			{

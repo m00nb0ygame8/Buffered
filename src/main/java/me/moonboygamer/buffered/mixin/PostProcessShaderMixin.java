@@ -3,6 +3,7 @@ package me.moonboygamer.buffered.mixin;
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexBuffer;
+import me.moonboygamer.buffered.addons.PostShaderAddon;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.util.ShaderDefaults;
 import net.minecraft.client.MinecraftClient;

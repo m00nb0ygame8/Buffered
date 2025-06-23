@@ -73,6 +73,7 @@ public abstract class ShaderEffectMixin {
 		ordinal = 0
 	)
 	private GlUniform buffered$getUniform(GlUniform original, JsonElement jsonUniform) {
+		if(!useDynamicShader.get()) return original;
 		String name = JsonHelper.isString(jsonUniform) ? jsonUniform.getAsString() : JsonHelper.getString(jsonUniform.getAsJsonObject(), "name");
 		if(name == null) throw new IllegalStateException("Uniform was not passed in correctly. Ensure you are using the correct method to parse uniforms.");
 		if(currentPass.get() == null) throw new IllegalStateException("Current pass not set. This should not happen, please report this issue.");
