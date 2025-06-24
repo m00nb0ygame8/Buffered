@@ -30,7 +30,7 @@ loom {
 			// configuration("exampleShadedConfigurationName")
 		}
 	}
-	accessWidenerPath = file('src/main/resources/me.moonboygamer.buffered.accesswidener')
+	accessWidenerPath = file('src/main/resources/buffered.accesswidener')
 }
 
 // All the dependencies are declared at gradle/libs.version.toml and referenced with "libs.<id>"

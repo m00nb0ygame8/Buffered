@@ -1,6 +1,5 @@
 package me.moonboygamer.buffered.util;
 
-import com.google.gson.JsonArray;
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexBuffer;
@@ -17,12 +16,7 @@ public class ShaderDefaults {
 		Framebuffer in = ((PostShaderAccessor) shader.getShader()).getInputFramebuffer();
 		Framebuffer out = ((PostShaderAccessor) shader.getShader()).getOutputFramebuffer();
 
-		if(insertSamplers) insertPostSamplers(shader, in);
-		//add all uniforms
-		JsonArray default4x4 = new JsonArray(), defaultVec2 = new JsonArray(), defaultFloat = new JsonArray();
-		for(int i = 0; i < 16; i++) {default4x4.add(0.0F);}
-		for(int i = 0; i < 2; i++) {defaultVec2.add(0.0F);}
-		defaultFloat.add(0.0F);
+		if(insertSamplers) insertPostSamplers(shader, in);;
 
 		shader.hasUniform("ProjMat", (glUniform) -> {
 			glUniform.setMat4x4(

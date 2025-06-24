@@ -18,6 +18,7 @@ public class PostShaderHelper {
 				mainFramebuffer,
 				identifier
 			);
+			effect.setupDimensions(MinecraftClient.getInstance().getWindow().getFramebufferWidth(), MinecraftClient.getInstance().getWindow().getFramebufferHeight());
 			if(BufferedShaderManager.isUseDynamicShader()) BufferedShaderManager.setUseDynamicShader(false); BufferedShaderManager.setCurrentDynamicShader(null);
 			return effect;
 		} catch (Exception e) {

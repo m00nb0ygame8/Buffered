@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.shader.GlUniform;
 import me.moonboygamer.buffered.program.BufferedShader;
-import net.minecraft.client.gl.PostProcessShader;
 import net.minecraft.client.gl.ShaderParseException;
 import net.minecraft.client.render.ShaderProgram;
 

@@ -2,6 +2,7 @@ package me.moonboygamer.buffered.post.pipeline;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import me.moonboygamer.buffered.mixin.ShaderEffectAccessor;
+import me.moonboygamer.buffered.shader.BufferedShaderManager;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.util.Identifier;
 
@@ -14,8 +15,9 @@ public class BufferedRenderPipeline {
 		this.postShader = effect;
 	}
 
-	public void render(float tickDelta) {
-		postShader.render(tickDelta);
+	public void render() {
+		BufferedShaderManager.setPostShader(this);
+		BufferedShaderManager.enablePostShader();
 	}
 	public void close() {
 		postShader.close();
