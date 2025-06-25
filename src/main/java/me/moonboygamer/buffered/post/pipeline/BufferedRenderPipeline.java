@@ -1,8 +1,11 @@
 package me.moonboygamer.buffered.post.pipeline;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
+import me.moonboygamer.buffered.addons.GameRendererAddon;
+import me.moonboygamer.buffered.mixin.GameRendererAccessor;
 import me.moonboygamer.buffered.mixin.ShaderEffectAccessor;
 import me.moonboygamer.buffered.shader.BufferedShaderManager;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.util.Identifier;
 

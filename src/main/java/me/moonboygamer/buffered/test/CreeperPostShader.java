@@ -14,7 +14,7 @@ public class CreeperPostShader extends PostShaderRenderer {
 		return new BufferedRenderPipeline(PostShaderHelper.createPostShader(
 			false,
 			MinecraftClient.getInstance().getFramebuffer(),
-			Objects.requireNonNull(Identifier.tryParse("me.moonboygamer.buffered:shaders/test/test_creeper.json")),
+			Objects.requireNonNull(Identifier.tryParse("buffered:shaders/test/test_creeper.json")),
 			null
 		));
 	}

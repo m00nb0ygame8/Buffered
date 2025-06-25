@@ -29,16 +29,20 @@ public class ShaderDefaults {
 			shader.markUniformsDirty();
 		});
 		shader.hasUniform("InSize", (glUniform) -> {
-			glUniform.setVec2(
-				(float) in.textureWidth,
-				(float) in.textureHeight
+			glUniform.setFloats(
+				new float[] {
+					(float) in.textureWidth,
+					(float) in.textureHeight
+				}
 			);
 			shader.markUniformsDirty();
 		});
 		shader.hasUniform("OutSize", (glUniform) -> {
-			glUniform.setVec2(
-				(float) out.textureWidth,
-				(float) out.textureHeight
+			glUniform.setFloats(
+				new float[]{
+					(float) out.textureWidth,
+					(float) out.textureHeight
+				}
 			);
 			shader.markUniformsDirty();
 		});

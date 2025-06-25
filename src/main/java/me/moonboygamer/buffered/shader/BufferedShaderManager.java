@@ -7,6 +7,8 @@ import me.moonboygamer.buffered.post.pipeline.BufferedRenderPipeline;
 import me.moonboygamer.buffered.program.BufferedShader;
 import me.moonboygamer.buffered.program.CompiledShader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +17,7 @@ public class BufferedShaderManager {
     private static boolean useDynamicShader = false;
 	private static DynamicPostShader currentDynamicShader = null;
     private static final Map<String, CompiledShader<BufferedShader>> registry = new ConcurrentHashMap<>();
+	private static final Identifier DYNAMIC_POST_ID = new Identifier("buffered", "dynamic_shader");
 
     public static boolean isUseDynamicShader() { return useDynamicShader; }
     public static void setUseDynamicShader(boolean isDynamicShader) { useDynamicShader = isDynamicShader; }
@@ -56,5 +59,18 @@ public class BufferedShaderManager {
 	}
 	public static void disablePostShader() {
 		((GameRendererAccessor) MinecraftClient.getInstance().gameRenderer).setShadersEnabled(false);
+	}
+	public static Identifier getDynamicPostId() {
+		return DYNAMIC_POST_ID;
+	}
+
+	/**
+	 * This is the recommended method over BufferedRenderPipeline.render!
+	 * @param id
+	 * @param shader
+	 */
+	public static void renderPostShader(Identifier id, @Nullable DynamicPostShader shader) {
+		GameRendererAddon grAddon = (GameRendererAddon) MinecraftClient.getInstance().gameRenderer;
+		grAddon.buffered$loadPostShader(id, shader);
 	}
 }

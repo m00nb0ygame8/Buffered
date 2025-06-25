@@ -90,7 +90,7 @@ public abstract class ShaderEffectMixin {
 	private void buffered$createShaderEffect(ShaderEffect instance, TextureManager textureManager, Identifier location) {
 		if(useDynamicShader.get()) {
 			if(dynamicPostShader.get() == null) {
-				throw new IllegalArgumentException("Dynamic shader not set. Use ShaderEffectAddon.setDynamicPostShader() to set it.");
+				throw new IllegalArgumentException("Dynamic shader not set. Use BufferedShaderManager.setDynamicPostShader() to set it.");
 			}
 			buffered$parseDynamicShader(textureManager);
 		} else {
