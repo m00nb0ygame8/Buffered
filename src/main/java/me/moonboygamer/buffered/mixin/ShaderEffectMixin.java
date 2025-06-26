@@ -4,11 +4,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mojang.blaze3d.framebuffer.Framebuffer;
 import com.mojang.blaze3d.shader.GlUniform;
+import me.moonboygamer.buffered.BufferedMod;
 import me.moonboygamer.buffered.mesh.ProgramMesh;
 import me.moonboygamer.buffered.post.DynamicPostShader;
+import me.moonboygamer.buffered.post.PostProgramShaderRenderer;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.program.CompiledShader;
 import me.moonboygamer.buffered.shader.BufferedShaderManager;
+import me.moonboygamer.buffered.util.ShaderDefaults;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.PostProcessShader;
 import net.minecraft.client.gl.ShaderEffect;
@@ -106,6 +109,7 @@ public abstract class ShaderEffectMixin {
 	 */
 	@Overwrite
 	public void render(float tickDelta) {
+//		BufferedMod.LOGGER.warn("Rendering shader{} with tickDelta: {}", ((ShaderEffect) (Object) this).getName(), tickDelta);
 		if (tickDelta < lastTickDelta) {
 			time += 1.0F - lastTickDelta;
 			time += tickDelta;
@@ -114,30 +118,37 @@ public abstract class ShaderEffectMixin {
 		}
 		time = (time > 20.0F) ? (time % 20.0F) : time;
 		lastTickDelta = tickDelta;
-		List<CompiledShader<BufferedProgramShader>> compiledShaders = new ArrayList<>();
+		List<PostProgramShaderRenderer> shaderRenderers = new ArrayList<>();
 		for (PostProcessShader shader : passes) {
-			compiledShaders.add(
-				BufferedShaderManager.compileShader(
-					new BufferedProgramShader(shader)
+			shaderRenderers.add(
+				new PostProgramShaderRenderer(
+					new BufferedProgramShader(shader),
+					shader.input,
+					shader.output
 				)
 			);
 		}
-		Framebuffer lastFramebuffer = null;
-		for (CompiledShader<BufferedProgramShader> shader : compiledShaders) {
-			ProgramMesh mesh = new ProgramMesh(shader, false);
-			mesh.draw(null, null, tickDelta);
-			lastFramebuffer = shader.getStoredShader().getShader().output;
+
+		//render each shader
+		for(PostProgramShaderRenderer shaderRenderer : shaderRenderers) {
+			try {
+				shaderRenderer.init();
+				shaderRenderer.render(null, tickDelta);
+			} catch (Exception e) {
+				throw new RuntimeException("Failed to render shader: " + shaderRenderer.toString());
+			}
 		}
 
-		if (lastFramebuffer != null) {
-			MinecraftClient client = MinecraftClient.getInstance();
-			client.getFramebuffer().beginWrite(true);
-			lastFramebuffer.draw(
-				client.getWindow().getFramebufferWidth(),
-				client.getWindow().getFramebufferHeight(),
-				false
-			);
-		}
+		Framebuffer finalOut = shaderRenderers.get(shaderRenderers.size() - 1).out;
+
+		MinecraftClient client = MinecraftClient.getInstance();
+		client.getFramebuffer().beginWrite(true);
+
+		finalOut.draw(
+			client.getWindow().getFramebufferWidth(),
+			client.getWindow().getFramebufferHeight(),
+			false
+		);
 	}
 
 

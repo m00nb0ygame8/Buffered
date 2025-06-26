@@ -72,6 +72,7 @@ public class ShaderDefaults {
 	public static void insertPostSamplers(BufferedProgramShader shader, Framebuffer in) {
 		shader.getShader().getProgram().bindSampler("TextureSampler", in::getColorAttachment);
 		shader.getShader().getProgram().bindSampler("DepthSampler", in::getDepthAttachment);
+		shader.getShader().getProgram().bindSampler("DiffuseSampler", in::getColorAttachment);
 	}
 	public static VertexBuffer createDefaultPostVBO(int initialCapacity, Framebuffer out) {
 		VertexBuffer vbo = VertexFormats.POSITION_TEXTURE_COLOR.getBuffer();
