@@ -1,8 +1,10 @@
 package me.moonboygamer.buffered.mixin;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
+import com.mojang.blaze3d.shader.GlUniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexBuffer;
+import me.moonboygamer.buffered.BufferedMod;
 import me.moonboygamer.buffered.addons.PostShaderAddon;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.util.ShaderDefaults;
@@ -13,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.IntSupplier;
 
 @Mixin(PostProcessShader.class)
@@ -68,13 +71,20 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 	@Overwrite
 	public void render(float tickDelta) {
 		BufferedProgramShader bufferedSelf = new BufferedProgramShader((PostProcessShader)(Object) this);
+//		PostProcessShader self = (PostProcessShader)(Object) this;
 		input.endWrite();
+//		for(Map.Entry<String, GlUniform> uniform : ((JsonGlShaderAccessor)self.getProgram()).getUniformByName().entrySet()) {
+//			BufferedMod.LOGGER.warn("Uniform: {} = {}", uniform.getKey(), uniform.getValue());
+//		}
 		ShaderDefaults.insertPostSamplers(bufferedSelf, input);
 		for(int i = 0; i < samplerValues.size(); ++i) {
 			program.bindSampler(this.samplerNames.get(i), this.samplerValues.get(i));
 			program.getUniformByNameOrDummy("AuxSize" + i).setVec2((float) this.samplerWidths.get(i), (float) this.samplerHeights.get(i));
 		}
 		ShaderDefaults.insertPostUniforms(bufferedSelf, tickDelta, input, false);
+//		for(Map.Entry<String, GlUniform> uniform : ((JsonGlShaderAccessor)self.getProgram()).getUniformByName().entrySet()) {
+//			BufferedMod.LOGGER.warn("Uniform: {} set to {} with type {}", uniform.getKey(), uniform.getValue().getFloatData(), fromType(uniform.getValue().getDataType()));
+//		}
 		program.enable();
 		output.clear(MinecraftClient.IS_SYSTEM_MAC);
 		output.beginWrite(false);
@@ -96,5 +106,35 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 				((Framebuffer)object).endRead();
 			}
 		}
+		//postVbo.close();
 	}
+
+//	private String fromType(int type) {
+//		  final int TYPE_INT = 0;
+//		  final int TYPE_IVEC2 = 1;
+//		  final int TYPE_IVEC3 = 2;
+//		  final int TYPE_IVEC4 = 3;
+//		  final int TYPE_FLOAT = 4;
+//		  final int TYPE_VEC2 = 5;
+//		  final int TYPE_VEC3 = 6;
+//		  final int TYPE_VEC4 = 7;
+//		  final int TYPE_MAT2 = 8;
+//		  final int TYPE_MAT3 = 9;
+//		  final int TYPE_MAT4 = 10;
+//
+//		return switch (type) {
+//			case TYPE_INT -> "int";
+//			case TYPE_IVEC2 -> "ivec2";
+//			case TYPE_IVEC3 -> "ivec3";
+//			case TYPE_IVEC4 -> "ivec4";
+//			case TYPE_FLOAT -> "float";
+//			case TYPE_VEC2 -> "vec2";
+//			case TYPE_VEC3 -> "vec3";
+//			case TYPE_VEC4 -> "vec4";
+//			case TYPE_MAT2 -> "mat2";
+//			case TYPE_MAT3 -> "mat3";
+//			case TYPE_MAT4 -> "mat4";
+//			default -> throw new IllegalArgumentException("Unknown type: " + type);
+//		};
+//	}
 }

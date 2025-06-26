@@ -9,16 +9,14 @@ import me.moonboygamer.buffered.post.DynamicPostShader;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.program.CompiledShader;
 import me.moonboygamer.buffered.shader.BufferedShaderManager;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.PostProcessShader;
 import net.minecraft.client.gl.ShaderEffect;
 import net.minecraft.client.gl.ShaderParseException;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -102,8 +100,12 @@ public abstract class ShaderEffectMixin {
 		}
 	}
 
-	@Inject(method = "render", at = @At("HEAD"))
-	private void buffered$render(float tickDelta, CallbackInfo ci) {
+	/**
+	 * @author MoonBoyGamer
+	 * @reason Override the render method to handle BufferedProgramShader rendering.
+	 */
+	@Overwrite
+	public void render(float tickDelta) {
 		if (tickDelta < lastTickDelta) {
 			time += 1.0F - lastTickDelta;
 			time += tickDelta;
@@ -113,18 +115,31 @@ public abstract class ShaderEffectMixin {
 		time = (time > 20.0F) ? (time % 20.0F) : time;
 		lastTickDelta = tickDelta;
 		List<CompiledShader<BufferedProgramShader>> compiledShaders = new ArrayList<>();
-		for(PostProcessShader shader : passes) {
+		for (PostProcessShader shader : passes) {
 			compiledShaders.add(
 				BufferedShaderManager.compileShader(
 					new BufferedProgramShader(shader)
 				)
 			);
 		}
-		for(CompiledShader<BufferedProgramShader> shader : compiledShaders) {
+		Framebuffer lastFramebuffer = null;
+		for (CompiledShader<BufferedProgramShader> shader : compiledShaders) {
 			ProgramMesh mesh = new ProgramMesh(shader, false);
 			mesh.draw(null, null, tickDelta);
+			lastFramebuffer = shader.getStoredShader().getShader().output;
+		}
+
+		if (lastFramebuffer != null) {
+			MinecraftClient client = MinecraftClient.getInstance();
+			client.getFramebuffer().beginWrite(true);
+			lastFramebuffer.draw(
+				client.getWindow().getFramebufferWidth(),
+				client.getWindow().getFramebufferHeight(),
+				false
+			);
 		}
 	}
+
 
 	@Unique
 	private void buffered$parseDynamicShader(TextureManager textureManager) {

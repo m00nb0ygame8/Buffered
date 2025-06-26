@@ -1,10 +1,12 @@
 package me.moonboygamer.buffered.util;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
+import com.mojang.blaze3d.shader.GlUniform;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormats;
+import me.moonboygamer.buffered.BufferedMod;
 import me.moonboygamer.buffered.mixin.PostShaderAccessor;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import net.minecraft.client.MinecraftClient;
@@ -29,12 +31,19 @@ public class ShaderDefaults {
 			shader.markUniformsDirty();
 		});
 		shader.hasUniform("InSize", (glUniform) -> {
-			glUniform.setFloats(
-				new float[] {
-					(float) in.textureWidth,
-					(float) in.textureHeight
-				}
-			);
+			float[] inSize = new float[]{
+				(float) in.textureWidth,
+				(float) in.textureHeight
+			};
+			//if data is either float or vec2, set it
+			if(glUniform.getDataType() == GlUniform.TYPE_FLOAT) {
+				glUniform.setFloats(inSize);
+			} else if (glUniform.getDataType() == GlUniform.TYPE_VEC2) {
+				glUniform.setVec2(inSize[0], inSize[1]);
+			} else {
+				throw new IllegalArgumentException("InSize uniform must be either float or vec2, but was " + glUniform.getDataType());
+			}
+//			BufferedMod.LOGGER.warn("Set InSize uniform to: {}, {}, because was datatype {}", inSize[0], inSize[1], glUniform.getDataType());
 			shader.markUniformsDirty();
 		});
 		shader.hasUniform("OutSize", (glUniform) -> {
