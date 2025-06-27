@@ -10,6 +10,7 @@ public class BufferedMod implements ModInitializer {
 	// It is considered best practice to use your mod name as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger("Buffered");
+	public static final boolean DEBUG = false; // Turn off in production builds
 
 	@Override
 	public void onInitialize(ModContainer mod) {

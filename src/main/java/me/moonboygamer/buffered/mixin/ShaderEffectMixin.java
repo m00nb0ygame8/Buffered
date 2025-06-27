@@ -109,46 +109,27 @@ public abstract class ShaderEffectMixin {
 	 */
 	@Overwrite
 	public void render(float tickDelta) {
-//		BufferedMod.LOGGER.warn("Rendering shader{} with tickDelta: {}", ((ShaderEffect) (Object) this).getName(), tickDelta);
-		if (tickDelta < lastTickDelta) {
-			time += 1.0F - lastTickDelta;
-			time += tickDelta;
+		if (tickDelta < this.lastTickDelta) {
+			this.time += 1.0F - this.lastTickDelta;
+			this.time += tickDelta;
 		} else {
-			time += tickDelta - lastTickDelta;
+			this.time += tickDelta - this.lastTickDelta;
 		}
-		time = (time > 20.0F) ? (time % 20.0F) : time;
-		lastTickDelta = tickDelta;
-		List<PostProgramShaderRenderer> shaderRenderers = new ArrayList<>();
-		for (PostProcessShader shader : passes) {
-			shaderRenderers.add(
-				new PostProgramShaderRenderer(
-					new BufferedProgramShader(shader),
-					shader.input,
-					shader.output
-				)
+
+		for(this.lastTickDelta = tickDelta; this.time > 20.0F; this.time -= 20.0F) {
+
+		}
+
+		for(PostProcessShader postProcessShader : this.passes) {
+			PostProgramShaderRenderer renderer = new PostProgramShaderRenderer(
+				new BufferedProgramShader(postProcessShader),
+				postProcessShader.input,
+				postProcessShader.output
 			);
+			renderer.init();
+			//postProcessShader.render(this.time / 20.0F);
+			renderer.render(null, this.time / 20.0F);
 		}
-
-		//render each shader
-		for(PostProgramShaderRenderer shaderRenderer : shaderRenderers) {
-			try {
-				shaderRenderer.init();
-				shaderRenderer.render(null, tickDelta);
-			} catch (Exception e) {
-				throw new RuntimeException("Failed to render shader: " + shaderRenderer.toString());
-			}
-		}
-
-		Framebuffer finalOut = shaderRenderers.get(shaderRenderers.size() - 1).out;
-
-		MinecraftClient client = MinecraftClient.getInstance();
-		client.getFramebuffer().beginWrite(true);
-
-		finalOut.draw(
-			client.getWindow().getFramebufferWidth(),
-			client.getWindow().getFramebufferHeight(),
-			false
-		);
 	}
 
 

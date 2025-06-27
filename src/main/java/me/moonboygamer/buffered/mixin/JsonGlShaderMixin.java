@@ -23,14 +23,14 @@ public class JsonGlShaderMixin {
 	)
 	private Identifier buffered$createGlShader(String id) {
 		String strippedId = id.replace("shaders/program/", "").replaceFirst(".json", "");
-		BufferedMod.LOGGER.warn(strippedId);
+		if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn(strippedId);
 		if(Objects.requireNonNull(Identifier.tryParse(strippedId)).getNamespace().equals("minecraft")) {
 			Identifier identifier = Identifier.tryParse(id);
-			BufferedMod.LOGGER.warn("Default identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Default identifier: {}", identifier);
 			return identifier;
 		} else {
 			Identifier identifier = Identifier.tryParse(strippedId);
-			BufferedMod.LOGGER.warn("Parsed identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Parsed identifier: {}", identifier);
 			return identifier;
 		}
 	}
@@ -44,10 +44,10 @@ public class JsonGlShaderMixin {
 	private static Identifier buffered$loadEffect(String id) {
 		String strippedId = id.replace("shaders/program/", "");
 		ResourceManager manager = MinecraftClient.getInstance().getResourceManager();
-		BufferedMod.LOGGER.warn(strippedId);
+		if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn(strippedId);
 		if (Objects.requireNonNull(Identifier.tryParse(strippedId)).getNamespace().equals("minecraft")) {
 			Identifier identifier = Identifier.tryParse(id);
-			BufferedMod.LOGGER.warn("Default program identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Default program identifier: {}", identifier);
 			try {
 				manager.getResourceOrThrow(identifier);
 			} catch (FileNotFoundException e) {
@@ -62,10 +62,10 @@ public class JsonGlShaderMixin {
 				specialId = strippedId.substring(0, index + 1) + injectPath + strippedId.substring(index + 1);
 			}
 			Identifier identifier = Identifier.tryParse(specialId);
-			BufferedMod.LOGGER.warn("Parsed program identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Parsed program identifier: {}", identifier);
 			try {
 				manager.getResourceOrThrow(identifier);
-				BufferedMod.LOGGER.warn("Shader program loaded successfully: {}", identifier);
+				if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Shader program loaded successfully: {}", identifier);
 			} catch (FileNotFoundException e) {
 				throw new RuntimeException("Shader program not found: " + identifier, e);
 			}

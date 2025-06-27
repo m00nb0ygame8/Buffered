@@ -21,14 +21,14 @@ public class ShaderProgramMixin {
 	)
 	private Identifier buffered$createShaderProgram(String id) {
 		String strippedId = id.replace("shaders/core/", "").replaceFirst(".json", "");
-		BufferedMod.LOGGER.warn(strippedId);
+		if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn(strippedId);
 		if(Objects.requireNonNull(Identifier.tryParse(strippedId)).getNamespace().equals("minecraft")) {
 			Identifier identifier = new Identifier(id);
-			BufferedMod.LOGGER.warn("Default identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Default identifier: {}", identifier);
 			return identifier;
 		} else {
 			Identifier identifier = Identifier.tryParse(strippedId);
-			BufferedMod.LOGGER.warn("Parsed identifier: {}", identifier);
+			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Parsed identifier: {}", identifier);
 			return identifier;
 		}
 	}
