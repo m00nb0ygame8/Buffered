@@ -1,10 +1,8 @@
 package me.moonboygamer.buffered.mixin;
 
 import com.mojang.blaze3d.framebuffer.Framebuffer;
-import com.mojang.blaze3d.shader.GlUniform;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import me.moonboygamer.buffered.BufferedMod;
 import me.moonboygamer.buffered.addons.PostShaderAddon;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import me.moonboygamer.buffered.util.ShaderDefaults;
@@ -15,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.IntSupplier;
 
 @Mixin(PostProcessShader.class)
@@ -74,7 +71,7 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 //		PostProcessShader self = (PostProcessShader)(Object) this;
 		input.endWrite();
 //		for(Map.Entry<String, GlUniform> uniform : ((JsonGlShaderAccessor)self.getProgram()).getUniformByName().entrySet()) {
-//			BufferedMod.LOGGER.warn("Uniform: {} = {}", uniform.getKey(), uniform.getValue());
+//			BufferedConstants.LOGGER.warn("Uniform: {} = {}", uniform.getKey(), uniform.getValue());
 //		}
 		ShaderDefaults.insertPostSamplers(bufferedSelf, input);
 		for(int i = 0; i < samplerValues.size(); ++i) {
@@ -83,7 +80,7 @@ public class PostProcessShaderMixin implements PostShaderAddon {
 		}
 		ShaderDefaults.insertPostUniforms(bufferedSelf, tickDelta, input, false);
 //		for(Map.Entry<String, GlUniform> uniform : ((JsonGlShaderAccessor)self.getProgram()).getUniformByName().entrySet()) {
-//			BufferedMod.LOGGER.warn("Uniform: {} set to {} with type {}", uniform.getKey(), uniform.getValue().getFloatData(), fromType(uniform.getValue().getDataType()));
+//			BufferedConstants.LOGGER.warn("Uniform: {} set to {} with type {}", uniform.getKey(), uniform.getValue().getFloatData(), fromType(uniform.getValue().getDataType()));
 //		}
 		program.enable();
 		output.clear(MinecraftClient.IS_SYSTEM_MAC);

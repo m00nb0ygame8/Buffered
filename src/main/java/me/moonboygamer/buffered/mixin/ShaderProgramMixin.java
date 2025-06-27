@@ -1,6 +1,6 @@
 package me.moonboygamer.buffered.mixin;
 
-import me.moonboygamer.buffered.BufferedMod;
+import me.moonboygamer.buffered.BufferedConstants;
 import net.minecraft.client.render.ShaderProgram;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,14 +21,14 @@ public class ShaderProgramMixin {
 	)
 	private Identifier buffered$createShaderProgram(String id) {
 		String strippedId = id.replace("shaders/core/", "").replaceFirst(".json", "");
-		if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn(strippedId);
+		if(BufferedConstants.DEBUG) BufferedConstants.LOGGER.warn(strippedId);
 		if(Objects.requireNonNull(Identifier.tryParse(strippedId)).getNamespace().equals("minecraft")) {
 			Identifier identifier = new Identifier(id);
-			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Default identifier: {}", identifier);
+			if(BufferedConstants.DEBUG) BufferedConstants.LOGGER.warn("Default identifier: {}", identifier);
 			return identifier;
 		} else {
 			Identifier identifier = Identifier.tryParse(strippedId);
-			if(BufferedMod.DEBUG) BufferedMod.LOGGER.warn("Parsed identifier: {}", identifier);
+			if(BufferedConstants.DEBUG) BufferedConstants.LOGGER.warn("Parsed identifier: {}", identifier);
 			return identifier;
 		}
 	}

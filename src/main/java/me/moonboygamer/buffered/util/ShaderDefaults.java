@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormats;
-import me.moonboygamer.buffered.BufferedMod;
 import me.moonboygamer.buffered.mixin.PostShaderAccessor;
 import me.moonboygamer.buffered.program.BufferedProgramShader;
 import net.minecraft.client.MinecraftClient;

@@ -4,6 +4,7 @@
 		"group": "${group}",
 		"id": "buffered",
 		"version": "${version}",
+		"load_type": "if_required",
 		"metadata": {
 			"name": "Buffered",
 			"description": "A mod that helps in rendering shaders effectively.",
@@ -18,10 +19,7 @@
 			"icon": "assets/buffered/icon.png"
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
-		"entrypoints": {
-			"init": "me.moonboygamer.buffered.BufferedMod",
-			"client_init": "me.moonboygamer.buffered.client.BufferedClient"
-		},
+		"entrypoints": {},
 		"depends": [
 			{
 				"id": "quilt_loader",

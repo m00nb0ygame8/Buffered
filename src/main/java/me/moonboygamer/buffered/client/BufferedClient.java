@@ -17,7 +17,8 @@ public class BufferedClient implements ClientModInitializer {
 //	private static boolean init = false;
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-
+//Examples:
+		//Core
 //		WorldRenderEvents.END.register(ctx -> {
 //			if(!init && MinecraftClient.getInstance().getResourceManager() != null) {
 //				redTriangleRenderer = ShaderRenderer.Factory.create(RedTriangleRenderer.class, true);
@@ -25,6 +26,7 @@ public class BufferedClient implements ClientModInitializer {
 //			}
 //			if(init) redTriangleRenderer.render(ctx.matrixStack(), ctx.tickDelta());
 //		});
+		//Program
 //		WorldRenderEvents.END.register(ctx -> {
 //			if(!init && MinecraftClient.getInstance().getResourceManager() != null) {
 //				fisheyeRenderer = ShaderRenderer.Factory.create(FisheyeRenderer.class, true);
@@ -32,6 +34,7 @@ public class BufferedClient implements ClientModInitializer {
 //			}
 //			if(init) fisheyeRenderer.render(ctx.matrixStack(), ctx.tickDelta());
 //		});
+		//Post
 //		WorldRenderEvents.END.register(ctx -> {
 //			BufferedShaderManager.renderPostShader(Identifier.tryParse("buffered:shaders/test/test_creeper.json"), null);
 //		});
