@@ -20,6 +20,15 @@ repositories {
 }
 
 dependencies {
-    implementation 'me.moonboygamer:Buffered:{version}'
+    implementation "me.moonboygamer:Buffered:${libs.versions.buffered.get()}"
 }
+```
+
+And this in your mod's ```gradle/libs.versions.toml```:
+
+```toml
+[versions]
+...
+buffered = "1.0.0+1.20.4"
+...
 ```
