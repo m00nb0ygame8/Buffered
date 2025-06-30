@@ -38,7 +38,6 @@ loom {
 dependencies {
 	minecraft libs.minecraft
 	mappings loom.layered {
-		officialMojangMappings()
 		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
 	}
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
