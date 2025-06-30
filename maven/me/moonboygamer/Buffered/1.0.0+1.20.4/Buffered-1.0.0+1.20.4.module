@@ -97,10 +97,10 @@
           "name": "Buffered-1.0.0+1.20.4-sources.jar",
           "url": "Buffered-1.0.0+1.20.4-sources.jar",
           "size": 37718,
-          "sha512": "ebd5e098969f9960701d7a22b0a9c11bd490cd1dbc37ae1b48296b7d141bcbf217ca5994916dc7784e94a30cac4441e788ccb65df7000344b2637eff534e75d7",
-          "sha256": "5c0144046bdc74576005974c806bbe6193ca3c06df6d272880dc5d974994cb7c",
-          "sha1": "895093c19629fef493ca89b0b1a8d72a64964fa1",
-          "md5": "ce4698db07226d4eaee1bd4d2d2c65be"
+          "sha512": "0605ebeaa58ecb4814004f0945bf0942d674428f14bed4c7a3fafbccac342d57d86dd74f55fa3ec9c473498fa7912f538db1785c23209f4d833a76becfcf0550",
+          "sha256": "6885f172104df07e61e71970cde60053dc6e5da2b9cd5705f480e49adfc1d16d",
+          "sha1": "01d886918f644988fe662c1786673aba9531c1d7",
+          "md5": "9e3ce566a752a83dcf92e70229156009"
         }
       ]
     }
