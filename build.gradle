@@ -87,6 +87,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifact remapJar
+			artifact remapSourcesJar
 			//from components.java
 		}
 	}
