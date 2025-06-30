@@ -86,7 +86,8 @@ java {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			from components.java
+			artifact remapJar
+			//from components.java
 		}
 	}
 
@@ -96,4 +97,7 @@ publishing {
 			url = uri("file://${rootProject.projectDir}/maven")
 		}
 	}
+}
+tasks.publish {
+	dependsOn remapJar
 }
