@@ -56,6 +56,12 @@ dependencies {
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
 }
 
+processResources {
+	filesMatching("quilt.mod.json") {
+		expand(project.properties)
+	}
+}
+
 tasks.withType(JavaCompile).configureEach {
 	it.options.encoding = 'UTF-8'
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
