@@ -1,0 +1,108 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "me.moonboygamer",
+    "module": "Buffered",
+    "version": "1.0.0+1.20.4",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.8"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "Buffered-1.0.0+1.20.4.jar",
+          "url": "Buffered-1.0.0+1.20.4.jar",
+          "size": 61111,
+          "sha512": "c60513da68aaaa1e2928cadc61340766d9fa270788142fe0db2f85aa7bf685f7ef42e674f6b5292181ed2ef8bade8a2113c203ff2faf5aefec656ebe7879f83a",
+          "sha256": "2aeb910e77833a6d83a9d15f8b597793dcb765283efc09741b5aecb1a125e64d",
+          "sha1": "557df00abb2eedfc5c789ff1bb1aa32bb4220fbd",
+          "md5": "aff8723bb313817bb9956d7cce242d19"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.quiltmc",
+          "module": "quilt-loader",
+          "version": {
+            "requires": "0.25.0"
+          },
+          "excludes": [
+            {
+              "group": "org.quiltmc",
+              "module": "quilt-loader-dependencies"
+            }
+          ]
+        },
+        {
+          "group": "org.quiltmc.quilted-fabric-api",
+          "module": "quilted-fabric-api",
+          "version": {
+            "requires": "9.0.0-alpha.8+0.97.0-1.20.4"
+          },
+          "excludes": [
+            {
+              "group": "org.quiltmc",
+              "module": "quilt-loader-dependencies"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "Buffered-1.0.0+1.20.4.jar",
+          "url": "Buffered-1.0.0+1.20.4.jar",
+          "size": 61111,
+          "sha512": "c60513da68aaaa1e2928cadc61340766d9fa270788142fe0db2f85aa7bf685f7ef42e674f6b5292181ed2ef8bade8a2113c203ff2faf5aefec656ebe7879f83a",
+          "sha256": "2aeb910e77833a6d83a9d15f8b597793dcb765283efc09741b5aecb1a125e64d",
+          "sha1": "557df00abb2eedfc5c789ff1bb1aa32bb4220fbd",
+          "md5": "aff8723bb313817bb9956d7cce242d19"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "Buffered-1.0.0+1.20.4-sources.jar",
+          "url": "Buffered-1.0.0+1.20.4-sources.jar",
+          "size": 37719,
+          "sha512": "7a1bd59fe88637a6668f8aad44ea53da5c233174ce060d7d8c558746250526639482daf1e9877dba7f141b7647d5ecb48728b425172a54461afde78bbf413ed9",
+          "sha256": "3df996d13daa9efe8aa7a85d3ac073171cadb0e0576ed8e2a64ee1b37fb53ddf",
+          "sha1": "a35ce4b4bbe5885d36e0dbb95cef632a7e86ba41",
+          "md5": "ec52594960c366f19f78a8d0b57f9da3"
+        }
+      ]
+    }
+  ]
+}
