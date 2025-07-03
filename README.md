@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation "me.moonboygamer:Buffered:${libs.versions.buffered.get()}"
+    modImplementation "me.moonboygamer:Buffered:${libs.versions.buffered.get()}"
 }
 ```
 
