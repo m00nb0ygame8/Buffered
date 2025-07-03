@@ -38,6 +38,7 @@ loom {
 dependencies {
 	minecraft libs.minecraft
 	mappings loom.layered {
+		officialMojangMappings()
 		mappings "org.quiltmc:quilt-mappings:${libs.versions.quilt.mappings.get()}:intermediary-v2"
 	}
 	// Replace the above line with the block below if you want to use Mojang mappings as your primary mappings, falling back on QM for parameters and Javadocs
@@ -53,14 +54,6 @@ dependencies {
 	// Quilted Fabric API will automatically pull in the correct QSL version.
 	modImplementation libs.quilted.fabric.api
 	// modImplementation libs.bundles.quilted.fabric.api // If you wish to use Fabric API's deprecated modules, you can replace the above line with this one
-}
-
-processResources {
-	inputs.properties 'version': version, 'group': project.group
-
-	filesMatching('quilt.mod.json') {
-		expand 'version': version, 'group': project.group
-	}
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -83,22 +76,17 @@ java {
 	// withJavadocJar()
 }
 
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-			artifact remapJar
-			artifact remapSourcesJar
-			//from components.java
+			from components.java
 		}
 	}
-
 	repositories {
 		maven {
 			name = "GithubPages"
 			url = uri("file://${rootProject.projectDir}/maven")
 		}
 	}
-}
-tasks.publish {
-	dependsOn remapJar
 }
