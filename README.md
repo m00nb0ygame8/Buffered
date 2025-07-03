@@ -29,6 +29,6 @@ And this in your mod's ```gradle/libs.versions.toml```:
 ```toml
 [versions]
 # ...
-buffered = "1.0.2+1.20.4"
+buffered = "1.0.4+1.20.4"
 # ...
 ```
